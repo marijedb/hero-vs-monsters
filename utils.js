@@ -7,5 +7,8 @@ export function getDiceRollArray(diceCount) {
     });
  }
 
-
-//  export {getDiceRollArray}
+ export function getDicePlaceholderHtml(diceCount){
+    return new Array(diceCount).fill(0).map(function(){
+        return `<div class="placeholder-dice"></div>`
+    }).join("")
+ }
