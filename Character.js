@@ -1,19 +1,11 @@
 import {getDiceRollArray, getDicePlaceholderHtml} from "./utils.js"
 
-/*
-Challenge
-1. In the getDiceHtml method, map over currentDiceScore 
-to return this string of html template for each element:
-<div class="dice">${num}</div>`. Save this new array
-to diceArray.
-2. Modify the attack() function in index.js to get our 
-app working again.
-*/
+
 function Character(data) {
     Object.assign(this, data)
 
     this.diceArray = getDicePlaceholderHtml(this.diceCount)
-
+    
     this.getDiceHtml = function () {
         // This returns an array of random numbers the length of diceCount and replaces
         // the currentDiceScore (which is either empty or with previous round numbers) with those numbers. 
@@ -24,6 +16,10 @@ function Character(data) {
         this.diceArray = this.currentDiceScore.map(function(num) {
             return `<div class="dice">${num}</div>`
         }).join('')
+    }
+    
+    this.takeDamage = function(attackScoreArray){
+        console.log(`${this.name} is damaged with ${attackScoreArray}`)
     }
 
     this.getCharacterHtml = function () {
