@@ -2,6 +2,7 @@ import characterData from "./data.js"
 import Character from "./Character.js";
 
 let monstersArray = ["orc", "demon", "goblin"];
+const attackButton = document.getElementById("attack-button");
 
 function getNewMonster(){
    const nextMonsterData = characterData[monstersArray.shift()]
@@ -9,20 +10,25 @@ function getNewMonster(){
 }
 
 function attack(){
-   wizard.getDiceHtml();
-   monster.getDiceHtml();
+   wizard.setDiceHtml();
+   monster.setDiceHtml();
    wizard.takeDamage(monster.currentDiceScore)
    monster.takeDamage(wizard.currentDiceScore)
    render()
-   
+
    if(wizard.dead){
-      endGame()
+      attackButton.disabled = true;
+      setTimeout(() => endGame(), 1500)
    } else if(monster.dead) {
+      attackButton.disabled = true;
       if(monstersArray.length < 1){
-         endGame()
+         setTimeout(() => endGame(), 1500)
       } else {
-         monster = getNewMonster()
-         render()
+         setTimeout(() => {
+            monster = getNewMonster()
+            attackButton.disabled = false;
+            render()
+      }, 1500)
       }
    } 
 }
@@ -39,12 +45,11 @@ function endGame(){
 }
 
 function render() {
-   console.log("rendering")
    document.getElementById("hero").innerHTML = wizard.getCharacterHtml()
    document.getElementById("monster").innerHTML = monster.getCharacterHtml()
 }
 
-document.getElementById("attack-button").addEventListener("click", attack)
+attackButton.addEventListener("click", attack)
 
 const wizard = new Character(characterData.hero);
 let monster = getNewMonster();
