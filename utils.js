@@ -12,3 +12,7 @@ export function getDiceRollArray(diceCount) {
         return `<div class="placeholder-dice"></div>`
     }).join("")
  }
+
+export function getPercentage(remainingHealth, maximumHealth){
+   return (100 * remainingHealth)/ maximumHealth
+}

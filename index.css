@@ -45,14 +45,19 @@ main {
                 0px 0px 10px rgba(117,182,214,0.2);
 }
 
-@media(min-width:550px){
+@media(min-width:550px) and (max-width: 1550px){
     .character-card {
         border: 0.2rem solid #000721;
-        height:26rem;
+        height:30rem;
         width:37vw;
     }
 }
 
+@media(min-width:1550px){
+    .character-card {
+        height:35rem;
+    }
+}
 .name {
     margin: 1vh 0;
     width:100%;
