@@ -17,9 +17,16 @@ function Character(data) {
             return `<div class="dice">${num}</div>`
         }).join('')
     }
-    
+
     this.takeDamage = function(attackScoreArray){
-        console.log(`${this.name} is damaged with ${attackScoreArray}`)
+        const totalAttackScore = attackScoreArray.reduce(function(totalScore, currentScore){
+            return totalScore + currentScore;
+        })
+        this.health -= totalAttackScore;
+        if(this.health <= 0){
+            this.dead = true;
+            this.health = 0;
+        } 
     }
 
     this.getCharacterHtml = function () {
