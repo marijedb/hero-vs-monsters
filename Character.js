@@ -1,11 +1,13 @@
 import {getDiceRollArray, getDicePlaceholderHtml, getPercentage} from "./utils.js"
 
-function Character(data) {
-    Object.assign(this, data)
-    this.maxHealth = this.health
-    this.diceHtml = getDicePlaceholderHtml(this.diceCount)
+class Character {
+    constructor(data){
+        Object.assign(this, data)
+        this.maxHealth = this.health
+        this.diceHtml = getDicePlaceholderHtml(this.diceCount)
+    }
     
-    this.setDiceHtml = function () {
+    setDiceHtml() {
         // This returns an array of random numbers the length of diceCount and replaces
         // the currentDiceScore (which is either empty or with previous round numbers) with those numbers. 
         this.currentDiceScore = getDiceRollArray(this.diceCount)
@@ -15,7 +17,7 @@ function Character(data) {
         this.diceHtml = this.currentDiceScore.map(num => `<div class="dice">${num}</div>`).join("")
     }
 
-    this.takeDamage = function(attackScoreArray){
+    takeDamage(attackScoreArray){
         const totalAttackScore = attackScoreArray.reduce((totalScore, currentScore) => totalScore + currentScore);
         this.health -= totalAttackScore;
         if(this.health <= 0){
@@ -24,7 +26,7 @@ function Character(data) {
         } 
     }
 
-    this.getHealthBarHtml = function(){
+    getHealthBarHtml(){
         const percent = getPercentage(this.health, this.maxHealth)
         return `
             <div class="health-bar-outer">
@@ -34,7 +36,7 @@ function Character(data) {
             </div>`
     }
 
-    this.getCharacterHtml = function () {
+    getCharacterHtml() {
         const {name,avatar,health, diceHtml} = this;
         const healthBar = this.getHealthBarHtml();
 
